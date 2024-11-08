@@ -1,9 +1,13 @@
-import { BaseDecoratorRecargo } from './BaseDecoratorRecargo';
-import { Asiento } from '../../models/Asiento';
+import { Asiento } from "../../models/Asiento";
+import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
+import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 export class UbicacionRecargo extends BaseDecoratorRecargo {
-    calcularPrecio(asiento: Asiento): number {
-        const recargoUbicacion = asiento.ubicacion.nombre === "VIP" ? 50 : 0; // Ejemplo: $50 extra para asientos VIP
-        return this.wrapee.calcularPrecio(asiento) + recargoUbicacion;
+    constructor(wrapee: CalculadoraPrecio) {
+        super(wrapee);
+    }
+
+    calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
+        return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por ubicación
     }
 }

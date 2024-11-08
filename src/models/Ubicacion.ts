@@ -1,11 +1,25 @@
-import { Asiento } from './Asiento';
-
 export class Ubicacion {
-    nombre: string;
-    cantidadMaxima: number;
-    asientos: Asiento[] = [];
+    private nombre: string;
+    private cantidadMaxima: number;
 
-    verificarDisponibilidad(): boolean {
-        return true;
+    constructor(nombre: string, cantidadMaxima: number) {
+        this.nombre = nombre;
+        this.cantidadMaxima = cantidadMaxima;
+    }
+
+    public get getNombre(): string {
+        return this.nombre;
+    }
+
+    public set setNombre(nombre: string) {
+        this.nombre = nombre;
+    }
+
+    public get getCantidadMaxima(): number {
+        return this.cantidadMaxima;
+    }
+
+    public set setCantidadMaxima(cantidadMaxima: number) {
+        this.cantidadMaxima = cantidadMaxima;
     }
 }

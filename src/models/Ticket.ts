@@ -1,18 +1,28 @@
-import { MedioPago } from './MedioPago';
-import { Asiento } from './Asiento';
+import { MedioPago } from './MedioPago';  // Asume que MedioPago es una clase exportada
+import { Asiento } from './Asiento';  // Asume que Asiento es una clase exportada
 
 export class Ticket {
-    medioPago: MedioPago;
-    fechaDePago: Date;
-    asientos: Asiento[] = [];
+    private medioPago: MedioPago;
+    private fechaDePago: Date;
+    private asientos: Asiento[];
 
-    calcularTotal(): number {
-        return this.asientos.reduce((total, asiento) => total + asiento.calcularPrecio(), 0);
+    constructor(medioPago: MedioPago, fechaDePago: Date, asientos: Asiento[]) {
+        this.medioPago = medioPago;
+        this.fechaDePago = fechaDePago;
+        this.asientos = asientos;
     }
 
-    agregarAsiento(asiento: Asiento): void {
-        this.asientos.push(asiento);
+    public calcularTotal(): number {
+        // Implementación
+        return 0.0;
     }
 
-    finalizarCompra(): void {}
+    public agregarAsiento(asiento: Asiento): void {
+        // Implementación
+    }
+
+    public finalizarCompra(): void {
+        // Implementación
+    }
+
 }

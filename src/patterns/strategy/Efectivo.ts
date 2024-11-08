@@ -1,9 +1,11 @@
-import { MedioPagoStrategy } from './MedioPagoStrategy';
+export class Efectivo implements IEstrategiaMedioPago {
+    private descuento: number;
 
-export class Efectivo extends MedioPagoStrategy {
-    descuento: number;
+    constructor(descuento: number) {
+        this.descuento = descuento;
+    }
 
-    calcularTotal(total: number): number {
-        return total - (total * this.descuento);
+    public calcularMonto(total: number): number {
+        return total - (total * this.descuento / 100);
     }
 }

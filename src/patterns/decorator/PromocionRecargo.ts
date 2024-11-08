@@ -1,18 +1,15 @@
-const BaseDecoratorRecargo = require('./BaseDecoratorRecargo');
-const Asiento = require('../../models/Asiento');
+import { Asiento } from "../../models/Asiento";
+import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
+import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 
 export class PromocionRecargo extends BaseDecoratorRecargo {
-    private descuento: number;
-
-    constructor(wrapee: BaseDecoratorRecargo, descuento: number) {
+    constructor(wrapee: CalculadoraPrecio) {
         super(wrapee);
-        this.descuento = descuento;
     }
 
-    calcularPrecio(asiento: Asiento): number {
-        const precioBase = this.wrapee.calcularPrecio(asiento);
-        const descuentoAplicado = precioBase * (this.descuento / 100);
-        return precioBase - descuentoAplicado;
+    calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
+        return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por promoción
     }
 }
+

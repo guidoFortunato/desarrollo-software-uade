@@ -1,7 +1,7 @@
-import { MedioPagoStrategy } from './MedioPagoStrategy';
+export class Debito implements IEstrategiaMedioPago {
 
-export class Debito extends MedioPagoStrategy {
-    calcularTotal(total: number): number {
-        return total;
+    public calcularMonto(total: number): number {
+        // TODO: Implementar lógica
+        return 0;
     }
 }

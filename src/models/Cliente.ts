@@ -1,9 +1,37 @@
+import { Ticket } from "./Ticket";
+
 export class Cliente {
-  nombre: string;
-  dni: string;
+  private nombre: string;
+  private dni: string;
+  private tickets: Ticket[];
 
   constructor(nombre: string, dni: string) {
       this.nombre = nombre;
       this.dni = dni;
+      this.tickets = [];
+  }
+
+  // Getter y setter para tickets
+  get getTickets(): Ticket[] {
+      return this.tickets;
+  }
+
+  set setTickets(tickets: Ticket[]) {
+      this.tickets = tickets;
+  }
+
+  // Getter para nombre
+  get getNombre(): string {
+      return this.nombre;
+  }
+
+  set setNombre(nombre: string) {
+    this.nombre = nombre;
+  }
+
+  // Getter para dni
+  get getDni(): string {
+      return this.dni;
   }
 }
+

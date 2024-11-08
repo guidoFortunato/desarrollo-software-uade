@@ -1,8 +1,13 @@
-import { BaseDecoratorRecargo } from './BaseDecoratorRecargo';
-import { Asiento } from '../../models/Asiento';
+import { Asiento } from "../../models/Asiento";
+import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
+import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 export class ServicioRecargo extends BaseDecoratorRecargo {
-    calcularPrecio(asiento: Asiento): number {
-        return this.wrapee.calcularPrecio(asiento) + 20;
+    constructor(wrapee: CalculadoraPrecio) {
+        super(wrapee);
+    }
+
+    calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
+        return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por servicio
     }
 }

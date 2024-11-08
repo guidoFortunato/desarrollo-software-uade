@@ -1,16 +1,13 @@
-import { BaseDecoratorRecargo } from './BaseDecoratorRecargo';
-import { Asiento } from '../../models/Asiento';
+import { Asiento } from "../../models/Asiento";
+import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
+import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 export class DuracionRecargo extends BaseDecoratorRecargo {
-    private duracion: number;
-
-    constructor(wrapee: BaseDecoratorRecargo, duracion: number) {
+    constructor(wrapee: CalculadoraPrecio) {
         super(wrapee);
-        this.duracion = duracion;
     }
 
-    calcularPrecio(asiento: Asiento): number {
-        const recargoDuracion = this.duracion > 120 ? 30 : 0; // Ejemplo: recargo de $30 si dura más de 120 minutos
-        return this.wrapee.calcularPrecio(asiento) + recargoDuracion;
+    calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
+        return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por duración
     }
 }
