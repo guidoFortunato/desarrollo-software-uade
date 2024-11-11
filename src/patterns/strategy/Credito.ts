@@ -1,29 +1,25 @@
 export class Credito implements IEstrategiaMedioPago {
-    private cantCuotas: number;
-    private interes2Cuotas: number;
-    private interes3Cuotas: number;
-    private interes6Cuotas: number;
+    private cuotas: number;
 
-    constructor(cantCuotas: number, interes2Cuotas: number, interes3Cuotas: number, interes6Cuotas: number) {
-        this.cantCuotas = cantCuotas;
-        this.interes2Cuotas = interes2Cuotas;
-        this.interes3Cuotas = interes3Cuotas;
-        this.interes6Cuotas = interes6Cuotas;
+    constructor(cuotas: number) {
+        this.cuotas = cuotas;
     }
 
     public calcularMonto(total: number): number {
-        let interesAplicado = 0;
-
-        if (this.cantCuotas === 2) {
-            interesAplicado = this.interes2Cuotas;
-        } else if (this.cantCuotas === 3) {
-            interesAplicado = this.interes3Cuotas;
-        } else if (this.cantCuotas === 6) {
-            interesAplicado = this.interes6Cuotas;
-        } else {
-            throw new Error("Cantidad de cuotas no válida");
+        let recargo = 0;
+        switch (this.cuotas) {
+            case 2:
+                recargo = 0.06;
+                break;
+            case 3:
+                recargo = 0.12;
+                break;
+            case 6:
+                recargo = 0.20;
+                break;
+            default:
+                throw new CantidadCuotasException();
         }
-
-        return total + (total * interesAplicado / 100);
+        return total * (1 + recargo);
     }
 }

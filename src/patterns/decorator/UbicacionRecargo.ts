@@ -7,7 +7,11 @@ export class UbicacionRecargo extends BaseDecoratorRecargo {
         super(wrapee);
     }
 
+    // calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
+    //     return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por ubicación
+    // }
     calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
-        return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por ubicación
+        // return this.getWrapee.calcularPrecio(asiento, precioAcumulado) + 5.0;
+        return this.getWrapee().calcularPrecio(asiento, precioAcumulado) 
     }
 }

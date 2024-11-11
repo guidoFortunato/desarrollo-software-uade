@@ -3,11 +3,15 @@ import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
 import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 export class DuracionRecargo extends BaseDecoratorRecargo {
+
+
     constructor(wrapee: CalculadoraPrecio) {
         super(wrapee);
+
     }
 
     calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
-        return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por duración
+        // return this.getWrapee.calcularPrecio(asiento, precioAcumulado) + 5.0;
+        return this.getWrapee().calcularPrecio(asiento, precioAcumulado) 
     }
 }
