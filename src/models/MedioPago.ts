@@ -1,3 +1,5 @@
+import { IEstrategiaMedioPago } from '../patterns/strategy/IEstrategiaMedioPago';
+
 export class MedioPago {
   private estrategiaPago: IEstrategiaMedioPago;
   private tipo: string;
@@ -7,8 +9,8 @@ export class MedioPago {
       this.tipo = tipo;
   }
 
-  public calcularTotal(total: number): number {
-      return 0.0;
+  public calcularMonto(total: number): number {
+      return this.estrategiaPago.calcularMonto(total);
   }
 
   // Getters y Setters

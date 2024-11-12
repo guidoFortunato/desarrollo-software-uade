@@ -1,3 +1,6 @@
+import { IEstrategiaMedioPago } from './IEstrategiaMedioPago';
+import { CantidadCuotasException } from '../../excepciones/CantidadCuotasException';
+
 export class Credito implements IEstrategiaMedioPago {
     private cuotas: number;
 
@@ -6,8 +9,11 @@ export class Credito implements IEstrategiaMedioPago {
     }
 
     public calcularMonto(total: number): number {
-        let recargo = 0;
+        let recargo: number;
         switch (this.cuotas) {
+            case 1:
+                recargo = 0;
+                break;
             case 2:
                 recargo = 0.06;
                 break;
@@ -15,7 +21,7 @@ export class Credito implements IEstrategiaMedioPago {
                 recargo = 0.12;
                 break;
             case 6:
-                recargo = 0.20;
+                recargo = 0.25;
                 break;
             default:
                 throw new CantidadCuotasException();
