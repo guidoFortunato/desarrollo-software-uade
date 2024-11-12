@@ -1,29 +1,19 @@
-import { CalculadoraPrecio } from "./CalculadoraPrecio";
+
 import { Funcion } from "./Funcion";
+import { BaseDecoratorRecargo } from "../patterns/decorator/BaseDecoratorRecargo";
 
 
-
-export  class Asiento {
+export  abstract class Asiento {
 
     private _numeroAsiento: number;
     private _estado: boolean;
     private _funcion: Funcion;
+   
 
-
-    constructor(
-
-        numeroAsiento: number,
-        estado: boolean,
-        funcion: Funcion,
-        
-    ) {
-      
-       
+    constructor(numeroAsiento: number, estado: boolean,funcion: Funcion) {
         this._numeroAsiento = numeroAsiento;
-       
         this._estado = estado;
         this._funcion = funcion;
-      
     }
 
     // Getter y setter para funcion
@@ -38,9 +28,9 @@ export  class Asiento {
     
   
 
-   abstract set setPrecioBase(precioBase: number) {
+   abstract set setPrecioBase(precioBase: number);
       
-    // Getter y setter para ubicacion
+    
 
 
     // Getter y setter para numeroAsiento
@@ -62,17 +52,13 @@ export  class Asiento {
     }
 
     // Getter y setter para calculadora
-    get getCalculadora(): CalculadoraPrecio {
-        return this._calculadora;
-    }
+    
 
-    set setCalculadora(calculadora: CalculadoraPrecio) {
-        this._calculadora = calculadora;
-    }
+    
 
     // Método abstracto calcularPrecio
 
-    abstract getCosto():number;
+    abstract get getCosto():number;
     //abstract calcularPrecio(): number;
 }
 

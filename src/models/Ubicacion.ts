@@ -1,4 +1,4 @@
-export class UbicacionBuilder  {
+export class Ubicacion  {
     private nombre: string;
     private cantidadMaxima: number;
 
@@ -27,7 +27,7 @@ export class UbicacionBuilder  {
     }
 
     public build(nombre:string,cantidad:number){
-        if(nombre=="platea"){
+      /*  if(nombre=="platea"){
 
             return new Platea(cantidad);
         }
@@ -37,7 +37,9 @@ export class UbicacionBuilder  {
         } else {alert("no existeeee");
             
         }
+*/
 
+return 0;
 
 
     }

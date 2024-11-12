@@ -6,6 +6,7 @@ export class TeatroColonial {
     private direccion: string;
     private clientes: Cliente[];
     private funciones! :Funcion[];
+    private asientos!:Asiento[];
 
     constructor(direccion: string) {
         this.direccion = direccion;
@@ -58,4 +59,6 @@ export class TeatroColonial {
     public registrarCliente(cliente: Cliente): void {
         // Implementación
     }
+
+
 }

@@ -2,6 +2,7 @@
 
 import { Actor } from "./models/Actor";
 import { Asiento } from "./models/Asiento";
+import { Platea } from "./models/asientos/Platea";
 import { CalculadoraPrecio } from "./models/CalculadoraPrecio";
 import { Cliente } from "./models/Cliente";
 import { Funcion } from "./models/Funcion";
@@ -39,11 +40,20 @@ function main() {
 const clientes=[];
 clientes.push(cliente1,cliente1,cliente2);
 const teatoColonial = new TeatroColonial("nicolas avellaneda 1231231",);
-  //   const asiento = new AsientoTeatro(200, ubicacionPlatea, 1, calculadora, true, funcion, [ubicacionPlatea, ubicacionPalco]);
-  const calculadora = new CalculadoraPrecio();
+
+
+  
+
+   let asiento = new Platea(12,  true, funcion);
+
+
+
+  let asiento1 =new DuracionRecargo(30,asiento);
+
+console.log(asiento1.costo);
 
   // Aplicar decoradores de recargo a la calculadora de precio del asiento
-  let calculadoraConRecargo = new DuracionRecargo(calculadora); // Recargo por duración de la función
+ // let calculadoraConRecargo = new DuracionRecargo(calculadora); // Recargo por duración de la función
   // calculadoraConRecargo = new PromocionRecargo(calculadoraConRecargo); // Recargo por promoción
   // calculadoraConRecargo = new ServicioRecargo(calculadoraConRecargo); // Recargo por servicio
   // calculadoraConRecargo = new UbicacionRecargo(calculadoraConRecargo); // Recargo por ubicación

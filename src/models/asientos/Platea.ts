@@ -1,33 +1,37 @@
 import { Asiento } from "../Asiento";
 import { Funcion } from "../Funcion";
 export class Platea extends Asiento{
-    private cantidad : number;
+   
     private valor :number;
 
     private static contador:number; 
 
+    private nombre!:string;
+
+    
+
     
 
 
     
   
-    constructor(numeroAsiento: number, estado: boolean, funcion: Funcion, cantidad: number) {
+    constructor(numeroAsiento: number, estado: boolean, funcion: Funcion) {
       super(numeroAsiento,estado, funcion);
-      this.cantidad = cantidad;
+     
       this.valor= 200;
       Platea.contador ++;
   }
 
-  
 
 
 
 
-  public costo(){
+   public set setPrecioBase(precioBase: number) {
+      this.valor = precioBase;
+  }
+  public get getCosto(){
 
-    return get
-
-
+    return this.valor;
 
   }
 

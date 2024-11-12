@@ -4,14 +4,14 @@ import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
 export abstract class BaseDecoratorRecargo {
 
 
-    
+
 
    
 
 
 
 
-   abstract costo():number;
+   abstract get costo():number;
 }
 
 

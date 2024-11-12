@@ -4,17 +4,21 @@ import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 
 export class PromocionRecargo extends BaseDecoratorRecargo {
-    constructor(wrapee: CalculadoraPrecio) {
-        super(wrapee);
+
+
+    private asiento :Asiento;
+    
+private valor :number;
+   
+    constructor(valor:number,asiento:Asiento){
+        super();
+        this.valor=valor;
+        this.asiento=asiento;
     }
 
-    // calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
-    //     return this.wrapee.calcularPrecio(asiento, precioAcumulado) + 5.0; // Ejemplo de recargo por promoción
-    // }
+   public  get costo(){
 
-    calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
-        // return this.getWrapee.calcularPrecio(asiento, precioAcumulado) + 5.0;
-        return this.getWrapee().calcularPrecio(asiento, precioAcumulado) 
-    }
+        return this.valor+this.asiento.getCosto;
+       }
 }
 
