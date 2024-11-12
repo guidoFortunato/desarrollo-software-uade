@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Asiento, MedioPago } from '../../types';
+import { Asiento } from '../../models/Asiento';
+import { MedioPago } from '../../models/MedioPago';
 
 const Carrito = () => {
   const [asientos, setAsientos] = useState<Asiento[]>([]);
@@ -16,10 +17,10 @@ const Carrito = () => {
       
       <div className="mb-4">
         {asientos.map((asiento) => (
-          <div key={asiento.id} className="border p-2 mb-2">
-            <p>Función: {asiento.funcion.nombre}</p>
-            <p>Ubicación: {asiento.ubicacion.nombre}</p>
-            <p>Precio: ${asiento.precio}</p>
+          <div key={asiento.getNumeroAsiento} className="border p-2 mb-2">
+            <p>Función: {asiento.getFuncion.nombre}</p>
+            <p>Ubicación: {asiento.getUbicacion.nombre}</p>
+            <p>Precio: ${asiento.getPrecioBase}</p>
           </div>
         ))}
       </div>

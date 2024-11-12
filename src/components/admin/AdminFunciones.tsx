@@ -1,36 +1,42 @@
-import { useState, useEffect } from 'react';
-import { Funcion } from '../../types';
+import { useState } from 'react';
+import { Teatro } from '../../models/Teatro';
+import { Funcion } from '../../models/Funcion';
+import { Ubicacion } from '../../models/Ubicacion';
+import NuevaFuncionForm from './NuevaFuncionForm';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 
-const funcionesIniciales: Funcion[] = [
-  {
-    id: 1,
-    nombre: "Romeo y Julieta",
-    fecha: "2024-04-15",
-    hora: "20:00",
-    duracion: 120,
-    grupo: {
-      id: 1,
-      nombre: "Compañía Shakespeare",
-      actores: []
-    },
-    ubicaciones: [
-      { id: 1, nombre: "Platea", cantidadMaxima: 100, asientosDisponibles: 85, asientosOcupados: 15 },
-      { id: 2, nombre: "Palco Alto", cantidadMaxima: 100, asientosDisponibles: 92, asientosOcupados: 8 },
-      { id: 3, nombre: "Palco Bajo", cantidadMaxima: 100, asientosDisponibles: 76, asientosOcupados: 24 },
-      { id: 4, nombre: "Cazuela", cantidadMaxima: 100, asientosDisponibles: 100, asientosOcupados: 0 },
-      { id: 5, nombre: "Tertulia", cantidadMaxima: 100, asientosDisponibles: 95, asientosOcupados: 5 },
-      { id: 6, nombre: "Paraíso", cantidadMaxima: 100, asientosDisponibles: 88, asientosOcupados: 12 }
-    ]
-  }
+interface AdminFuncionesProps {
+  teatro: Teatro;
+}
+
+const ubicacionesDisponibles = [
+  new Ubicacion(1, "Platea", 100, 100, 0),
+  new Ubicacion(2, "Palco Alto", 100, 100, 0),
+  new Ubicacion(3, "Palco Bajo", 100, 100, 0),
+  new Ubicacion(4, "Cazuela", 100, 100, 0),
+  new Ubicacion(5, "Tertulia", 100, 100, 0),
+  new Ubicacion(6, "Paraíso", 100, 100, 0)
 ];
 
-const AdminFunciones = () => {
+const AdminFunciones = ({ teatro }: AdminFuncionesProps) => {
   const [showNewFuncionForm, setShowNewFuncionForm] = useState(false);
-  const [funciones, setFunciones] = useState<Funcion[]>([]);
+  const [funcionParaCopiar, setFuncionParaCopiar] = useState<Funcion | null>(null);
 
-  useEffect(() => {
-    setFunciones(funcionesIniciales);
-  }, []);
+  const handleCrearFuncion = (nuevaFuncion: Funcion) => {
+    teatro.agregarFuncion(nuevaFuncion);
+    setShowNewFuncionForm(false);
+    setFuncionParaCopiar(null);
+  };
+
+  const handleCopiarFuncion = (funcion: Funcion) => {
+    setFuncionParaCopiar(funcion);
+    setShowNewFuncionForm(true);
+  };
+
+  const handleCancelar = () => {
+    setShowNewFuncionForm(false);
+    setFuncionParaCopiar(null);
+  };
 
   return (
     <div className="container mx-auto p-8 bg-gray-50 min-h-screen">
@@ -45,15 +51,26 @@ const AdminFunciones = () => {
       </div>
 
       {showNewFuncionForm && (
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <h3 className="text-2xl font-semibold text-indigo-800 mb-4">Nueva Función</h3>
-          {/* Formulario de nueva función */}
-        </div>
+        <NuevaFuncionForm
+          grupos={teatro.getGrupos()}
+          ubicaciones={ubicacionesDisponibles}
+          onCrear={handleCrearFuncion}
+          onCancel={handleCancelar}
+          funcionParaCopiar={funcionParaCopiar}
+        />
       )}
 
       <div className="grid grid-cols-1 gap-6">
-        {funciones.map((funcion) => (
-          <div key={funcion.id} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-200">
+        {teatro.getFunciones().map((funcion) => (
+          <div key={funcion.id} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-200 relative">
+            <button
+              onClick={() => handleCopiarFuncion(funcion)}
+              className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              title="Copiar función"
+            >
+              <DocumentDuplicateIcon className="h-6 w-6" />
+            </button>
+            
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-2xl font-semibold text-indigo-800">{funcion.nombre}</h3>

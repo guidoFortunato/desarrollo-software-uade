@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Grupo } from '../../types';
+import { Grupo } from '../../models/Grupo';
+import { Actor } from '../../models/Actor';
 
 const AdminGrupos = () => {
   const [grupos, setGrupos] = useState<Grupo[]>([]);
@@ -23,10 +24,10 @@ const AdminGrupos = () => {
             <h3>{grupo.nombre}</h3>
             <div className="mt-2">
               <h4>Actores:</h4>
-              {grupo.actores.map((actor) => (
-                <div key={actor.id}>
-                  <p>{actor.nombre}</p>
-                  <p>DNI: {actor.dni}</p>
+              {grupo.actores.map((actor: Actor) => (
+                <div key={actor.getDni}>
+                  <p>{actor.getNombre}</p>
+                  <p>DNI: {actor.getDni}</p>
                 </div>
               ))}
             </div>

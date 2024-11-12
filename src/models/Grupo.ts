@@ -1,28 +1,33 @@
 import { Actor } from "./Actor";
 
 export class Grupo {
+  private _id: number;
+  private _nombre: string;
+  private _actores: Actor[];
 
-  private nombre: string;
-  private actores: Actor[];
-
-  constructor(nombre: string, actores: Actor[]) {
-    this.nombre = nombre;
-    this.actores = actores;
+  constructor(id: number, nombre: string, actores: Actor[]) {
+    this._id = id;
+    this._nombre = nombre;
+    this._actores = actores;
   }
 
-  get getNombre(): string {
-    return this.nombre;
+  get id(): number {
+    return this._id;
   }
 
-  set setNombre(nombre: string) {
-    this.nombre = nombre;
+  get nombre(): string {
+    return this._nombre;
+  }
+
+  set nombre(nombre: string) {
+    this._nombre = nombre;
   }
   
-  get getActores(): Actor[] {
-    return this.actores;
+  get actores(): Actor[] {
+    return this._actores;
   }
   
-  set setActores(actores: Actor[]) {
-    this.actores = actores;
+  set actores(actores: Actor[]) {
+    this._actores = actores;
   }
 }

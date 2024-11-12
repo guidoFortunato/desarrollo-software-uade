@@ -1,0 +1,9 @@
+export { Actor } from './Actor';
+export { Asiento } from './Asiento';
+export { CalculadoraPrecio } from './CalculadoraPrecio';
+export { Cliente } from './Cliente';
+export { Funcion } from './Funcion';
+export { Grupo } from './Grupo';
+export { MedioPago } from './MedioPago';
+export { Teatro } from './Teatro';
+export { Ubicacion } from './Ubicacion'; 

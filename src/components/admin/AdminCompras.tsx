@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Asiento } from '../../types';
+import { Asiento } from '../../models/Asiento';
+import { MedioPago } from '../../models/MedioPago';
 
 interface Compra {
   id: number;
   fecha: string;
   asientos: Asiento[];
-  medioPago: string;
+  medioPago: MedioPago;
   total: number;
 }
 
@@ -20,16 +21,16 @@ const AdminCompras = () => {
         {compras.map((compra) => (
           <div key={compra.id} className="border p-4">
             <p>Fecha: {compra.fecha}</p>
-            <p>Método de pago: {compra.medioPago}</p>
+            <p>Método de pago: {compra.medioPago.getTipo}</p>
             <p>Total: ${compra.total}</p>
             
             <div className="mt-2">
               <h4>Asientos:</h4>
               {compra.asientos.map((asiento) => (
-                <div key={asiento.id} className="ml-4">
-                  <p>Función: {asiento.funcion.nombre}</p>
-                  <p>Ubicación: {asiento.ubicacion.nombre}</p>
-                  <p>Número: {asiento.numeroAsiento}</p>
+                <div key={asiento.getNumeroAsiento} className="ml-4">
+                  <p>Función: {asiento.getFuncion.nombre}</p>
+                  <p>Ubicación: {asiento.getUbicacion.nombre}</p>
+                  <p>Número: {asiento.getNumeroAsiento}</p>
                 </div>
               ))}
             </div>

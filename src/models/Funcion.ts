@@ -3,90 +3,65 @@ import { Ubicacion } from './Ubicacion';
 import { Asiento } from './Asiento';
 
 export class Funcion {
-    private fecha: Date;
-    private hora: string;
-    private grupo: Grupo;
-    private duracion: number;
-    private ubicacionesHabilitadas: Ubicacion[];
-    private asientos: Asiento[];
+    private _id: number;
+    private _nombre: string;
+    private _fecha: Date;
+    private _hora: string;
+    private _grupo: Grupo;
+    private _duracion: number;
+    private _ubicaciones: Ubicacion[];
+    private _asientos: Asiento[];
 
     constructor(
+        id: number,
+        nombre: string,
         fecha: Date,
         hora: string,
         grupo: Grupo,
         duracion: number,
-        ubicacionesHabilitadas: Ubicacion[],
-        asientos: Asiento[]
+        ubicaciones: Ubicacion[],
+        asientos: Asiento[] = []
     ) {
-        this.fecha = fecha;
-        this.hora = hora;
-        this.grupo = grupo;
-        this.duracion = duracion;
-        this.ubicacionesHabilitadas = ubicacionesHabilitadas;
-        this.asientos = asientos;
+        this._id = id;
+        this._nombre = nombre;
+        this._fecha = fecha;
+        this._hora = hora;
+        this._grupo = grupo;
+        this._duracion = duracion;
+        this._ubicaciones = ubicaciones;
+        this._asientos = asientos;
     }
 
-    // Métodos privados
-    private agregarUbicacionHabilitada(ubicacion: Ubicacion): void {
-        // Implementación
+    get id(): number {
+        return this._id;
     }
 
-    private generarAsientosParaUbicacionesHabilitadas(): void {
-        // Implementación
+    get nombre(): string {
+        return this._nombre;
     }
 
-    private obtenerAsientosDisponibles(ubicacion: Ubicacion): Asiento[] | null {
-        // Implementación
-        return null;
+    get fecha(): string {
+        return this._fecha.toISOString().split('T')[0];
     }
 
-    // Getters y setters
-    get getFecha(): Date {
-        return this.fecha;
+    get hora(): string {
+        return this._hora;
     }
 
-    set setFecha(fecha: Date) {
-        this.fecha = fecha;
+    get grupo(): Grupo {
+        return this._grupo;
     }
 
-    get getHora(): string {
-        return this.hora;
+    get duracion(): number {
+        return this._duracion;
     }
 
-    set setHora(hora: string) {
-        this.hora = hora;
+    get ubicaciones(): Ubicacion[] {
+        return this._ubicaciones;
     }
 
-    get getGrupo(): Grupo {
-        return this.grupo;
-    }
-
-    set setGrupo(grupo: Grupo) {
-        this.grupo = grupo;
-    }
-
-    get getDuracion(): number {
-        return this.duracion;
-    }
-
-    set setDuracion(duracion: number) {
-        this.duracion = duracion;
-    }
-
-    get getUbicacionesHabilitadas(): Ubicacion[] {
-        return this.ubicacionesHabilitadas;
-    }
-
-    set setUbicacionesHabilitadas(ubicacionesHabilitadas: Ubicacion[]) {
-        this.ubicacionesHabilitadas = ubicacionesHabilitadas;
-    }
-
-    get getAsientos(): Asiento[] {
-        return this.asientos;
-    }
-
-    set setAsientos(asientos: Asiento[]) {
-        this.asientos = asientos;
+    get asientos(): Asiento[] {
+        return this._asientos;
     }
 }
 
