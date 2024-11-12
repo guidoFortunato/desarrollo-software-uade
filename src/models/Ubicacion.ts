@@ -1,6 +1,9 @@
-export class Ubicacion {
+export class UbicacionBuilder  {
     private nombre: string;
     private cantidadMaxima: number;
+
+
+    
 
     constructor(nombre: string, cantidadMaxima: number) {
         this.nombre = nombre;
@@ -21,5 +24,21 @@ export class Ubicacion {
 
     public set setCantidadMaxima(cantidadMaxima: number) {
         this.cantidadMaxima = cantidadMaxima;
+    }
+
+    public build(nombre:string,cantidad:number){
+        if(nombre=="platea"){
+
+            return new Platea(cantidad);
+        }
+        if (nombre=="palco alto") {
+            return new PalcoAlto(cantidad);
+            
+        } else {alert("no existeeee");
+            
+        }
+
+
+
     }
 }

@@ -1,33 +1,29 @@
 import { CalculadoraPrecio } from "./CalculadoraPrecio";
 import { Funcion } from "./Funcion";
-import { Ubicacion } from "./Ubicacion";
 
 
-export abstract class Asiento {
-    private _precioBase: number;
-    private _ubicacion: Ubicacion;
+
+export  class Asiento {
+
     private _numeroAsiento: number;
     private _estado: boolean;
-    private _calculadora: CalculadoraPrecio;
     private _funcion: Funcion;
-    private _ubicacionesHabilitadas: Ubicacion[];
+
 
     constructor(
-        precioBase: number,
-        ubicacion: Ubicacion,
+
         numeroAsiento: number,
-        calculadora: CalculadoraPrecio,
         estado: boolean,
         funcion: Funcion,
-        ubicacionesHabilitadas: Ubicacion[]
+        
     ) {
-        this._precioBase = precioBase;
-        this._ubicacion = ubicacion;
+      
+       
         this._numeroAsiento = numeroAsiento;
-        this._calculadora = calculadora;
+       
         this._estado = estado;
         this._funcion = funcion;
-        this._ubicacionesHabilitadas = ubicacionesHabilitadas;
+      
     }
 
     // Getter y setter para funcion
@@ -39,23 +35,13 @@ export abstract class Asiento {
         this._funcion = funcion;
     }
 
-    // Getter y setter para precioBase
-    get getPrecioBase(): number {
-        return this._precioBase;
-    }
+    
+  
 
-    set setPrecioBase(precioBase: number) {
-        this._precioBase = precioBase;
-    }
-
+   abstract set setPrecioBase(precioBase: number) {
+      
     // Getter y setter para ubicacion
-    get getUbicacion(): Ubicacion {
-        return this._ubicacion;
-    }
 
-    set setUbicacion(ubicacion: Ubicacion) {
-        this._ubicacion = ubicacion;
-    }
 
     // Getter y setter para numeroAsiento
     get getNumeroAsiento(): number {
@@ -85,6 +71,8 @@ export abstract class Asiento {
     }
 
     // Método abstracto calcularPrecio
-    abstract calcularPrecio(): number;
+
+    abstract getCosto():number;
+    //abstract calcularPrecio(): number;
 }
 

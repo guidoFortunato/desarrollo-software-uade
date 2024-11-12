@@ -1,17 +1,27 @@
+
 import { Asiento } from "../../models/Asiento";
 import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
 import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 export class DuracionRecargo extends BaseDecoratorRecargo {
 
+private asiento! :Asiento
+    
+private valor :number;
+   costo(){
 
-    constructor(wrapee: CalculadoraPrecio) {
-        super(wrapee);
+    this.asiento.
+   }
+    constructor(valor:number){
+        super();
+        this.valor=valor;
 
     }
 
-    calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
-        // return this.getWrapee.calcularPrecio(asiento, precioAcumulado) + 5.0;
-        return this.getWrapee().calcularPrecio(asiento, precioAcumulado) 
-    }
+
+setAsiento(asiento :Asiento){
+
+    this.asiento=asiento;
+}
+
 }

@@ -5,10 +5,13 @@ import { Funcion } from './Funcion';  // Asume que Funcion es una clase exportad
 export class TeatroColonial {
     private direccion: string;
     private clientes: Cliente[];
+    private funciones! :Funcion[];
 
     constructor(direccion: string) {
         this.direccion = direccion;
         this.clientes = [];
+
+        console.log("bienvenidos al treato Colonial");
     }
 
     public cargarDiasDisponibles(dias: Date[]): void {
@@ -37,6 +40,7 @@ export class TeatroColonial {
 
     public agregarFuncion(funcion: Funcion): void {
         // Implementación
+        this.funciones.push(funcion);
     }
 
     public asignarFechaFuncion(funcion: Funcion, fecha: Date): void {

@@ -9,6 +9,7 @@ export class Cliente {
       this.nombre = nombre;
       this.dni = dni;
       this.tickets = [];
+      console.log("cliente: "+nombre +" creado");
   }
 
   // Getter y setter para tickets

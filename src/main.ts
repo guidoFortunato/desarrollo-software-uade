@@ -6,6 +6,7 @@ import { CalculadoraPrecio } from "./models/CalculadoraPrecio";
 import { Cliente } from "./models/Cliente";
 import { Funcion } from "./models/Funcion";
 import { Grupo } from "./models/Grupo";
+import { TeatroColonial } from "./models/TeatroColonial";
 import { Ubicacion } from "./models/Ubicacion";
 import { DuracionRecargo } from "./patterns/decorator/DuracionRecargo";
 import { PromocionRecargo } from "./patterns/decorator/PromocionRecargo";
@@ -29,10 +30,15 @@ function main() {
     [ubicacionPlatea, ubicacionPalco],
     []
   );
-
+ 
   // Crear una instancia de Cliente
   const cliente = new Cliente("Carlos Ruiz", "98765432");
+  const cliente1 = new Cliente("carlos almiron", "32765432");
+  const cliente2 = new Cliente("pepito JUan", "98761332");
 
+const clientes=[];
+clientes.push(cliente1,cliente1,cliente2);
+const teatoColonial = new TeatroColonial("nicolas avellaneda 1231231",);
   //   const asiento = new AsientoTeatro(200, ubicacionPlatea, 1, calculadora, true, funcion, [ubicacionPlatea, ubicacionPalco]);
   const calculadora = new CalculadoraPrecio();
 
