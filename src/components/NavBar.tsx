@@ -1,8 +1,16 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCambiarVista = () => {
+    const newIsAdmin = !isAdmin;
+    setIsAdmin(newIsAdmin);
+    // Redirigir a la página de funciones correspondiente
+    navigate(newIsAdmin ? '/admin/funciones' : '/funciones');
+  };
 
   return (
     <nav className="bg-gradient-to-r from-purple-800 to-indigo-900 p-6 shadow-lg">
@@ -12,7 +20,7 @@ const NavBar = () => {
         </Link>
         <div className="flex items-center gap-6">
           <button
-            onClick={() => setIsAdmin(!isAdmin)}
+            onClick={handleCambiarVista}
             className="text-white bg-indigo-600 hover:bg-indigo-700 px-6 py-2 rounded-lg transition-colors duration-200 shadow-md"
           >
             Cambiar a {isAdmin ? 'Vista Usuario' : 'Vista Admin'}
@@ -31,12 +39,6 @@ const NavBar = () => {
             </div>
           ) : (
             <div className="flex gap-6">
-              <Link to="/funciones" className="text-white hover:text-purple-200 px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">
-                Funciones
-              </Link>
-              <Link to="/carrito" className="text-white hover:text-purple-200 px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">
-                Carrito
-              </Link>
             </div>
           )}
         </div>

@@ -1,96 +1,59 @@
-import { CalculadoraPrecio } from './CalculadoraPrecio';
-import { Funcion } from './Funcion';
 import { Ubicacion } from './Ubicacion';
+import { Funcion } from './Funcion';
+import { CalculadoraPrecio, CalculadoraPrecioBase } from './CalculadoraPrecio';
 
 export class Asiento {
-    private _precioBase: number;
-    private _ubicacion: Ubicacion;
-    private _numeroAsiento: number;
+    private _id: number;
     private _estado: boolean;
-    private _calculadora: CalculadoraPrecio;
+    private _ubicacion: Ubicacion;
     private _funcion: Funcion;
+    private _calculadoraPrecio: CalculadoraPrecio;
 
     constructor(
-        precioBase: number,
-        ubicacion: Ubicacion,
-        numeroAsiento: number,
-        calculadora: CalculadoraPrecio,
+        id: number,
         estado: boolean,
+        ubicacion: Ubicacion,
         funcion: Funcion
     ) {
-        this._precioBase = precioBase;
-        this._ubicacion = ubicacion;
-        this._numeroAsiento = numeroAsiento;
-        this._calculadora = calculadora;
+        this._id = id;
         this._estado = estado;
+        this._ubicacion = ubicacion;
         this._funcion = funcion;
+        this._calculadoraPrecio = new CalculadoraPrecioBase();
     }
 
-    // Getters
-    get getPrecioBase(): number {
-        return this._precioBase;
+    get calculadoraPrecio(): CalculadoraPrecio {
+        return this._calculadoraPrecio;
     }
 
-    get getUbicacion(): Ubicacion {
+    setCalculadoraPrecio(calculadora: CalculadoraPrecio) {
+        this._calculadoraPrecio = calculadora;
+    }
+
+    calcularPrecio(): number {
+        return this._calculadoraPrecio.calcular(this, 0);
+    }
+
+    get ubicacion(): Ubicacion {
         return this._ubicacion;
     }
 
-    get getNumeroAsiento(): number {
-        return this._numeroAsiento;
-    }
-
-    get isEstado(): boolean {
-        return this._estado;
-    }
-
-    get getCalculadora(): CalculadoraPrecio {
-        return this._calculadora;
-    }
-
-    get getFuncion(): Funcion {
+    get funcion(): Funcion {
         return this._funcion;
     }
 
-    // Setters
-    set setPrecioBase(precioBase: number) {
-        this._precioBase = precioBase;
+    get estado(): boolean {
+        return this._estado;
     }
 
-    set setUbicacion(ubicacion: Ubicacion) {
-        this._ubicacion = ubicacion;
+    get numeroAsiento(): number {
+        return this._id;
     }
-
-    set setNumeroAsiento(numeroAsiento: number) {
-        this._numeroAsiento = numeroAsiento;
-    }
-
-    set setEstado(estado: boolean) {
-        this._estado = estado;
-    }
-
-    set setCalculadora(calculadora: CalculadoraPrecio) {
-        this._calculadora = calculadora;
-    }
-
-    set setFuncion(funcion: Funcion) {
-        this._funcion = funcion;
-    }
-
-    // Método para calcular el precio final del asiento
-    calcularPrecio(): number {
-        return this._calculadora.calcularPrecio(this, 0);
-    }
-
-    // Método para marcar el asiento como ocupado
-    ocupar(): void {
+    ocupar() {
         this._estado = true;
-        this._ubicacion.ocuparAsiento();
     }
-
-    // Método para liberar el asiento
-    liberar(): void {
+    liberar() {
         this._estado = false;
-        this._ubicacion.liberarAsiento();
     }
 }
 

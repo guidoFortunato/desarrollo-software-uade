@@ -11,37 +11,51 @@ const UserLayout = ({ teatro }: UserLayoutProps) => {
   const [asientosEnCarrito, setAsientosEnCarrito] = useState<Asiento[]>([]);
 
   const agregarAlCarrito = (asiento: Asiento) => {
-    asiento.ocupar();
     setAsientosEnCarrito([...asientosEnCarrito, asiento]);
   };
 
   const quitarDelCarrito = (funcionId: number, ubicacionId: number) => {
-    const asientoAQuitar = asientosEnCarrito.find(a => 
-      a.getFuncion.id === funcionId && 
-      a.getUbicacion.id === ubicacionId
+    const asientosCoincidentes = asientosEnCarrito.filter(a => 
+      a.funcion.id === funcionId && 
+      a.ubicacion.id === ubicacionId
     );
     
-    if (asientoAQuitar) {
-      asientoAQuitar.liberar();
-      setAsientosEnCarrito(asientosEnCarrito.filter(a => a !== asientoAQuitar));
+    if (asientosCoincidentes.length > 0) {
+      const asientoAQuitar = asientosCoincidentes[asientosCoincidentes.length - 1];
+      
+      const nuevosAsientos = asientosEnCarrito.filter(a => a !== asientoAQuitar);
+      setAsientosEnCarrito(nuevosAsientos);
     }
   };
 
+  const finalizarCompra = () => {
+    asientosEnCarrito.forEach(asiento => {
+      asiento.ocupar();
+    });
+    setAsientosEnCarrito([]);
+  };
+
+  const cancelarCompra = () => {
+    setAsientosEnCarrito([]);
+  };
+
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Carrito Sidebar (25%) */}
-      <div className="w-1/4 bg-white shadow-lg p-4 border-r">
+    <div className="flex h-[calc(100vh-64px)]">
+      <div className="w-1/4 bg-white shadow-lg border-r">
         <CarritoSidebar 
           asientos={asientosEnCarrito}
           onQuitarAsiento={quitarDelCarrito}
+          onFinalizarCompra={finalizarCompra}
+          onCancelarCompra={cancelarCompra}
+          teatro={teatro}
         />
       </div>
 
-      {/* Lista de Funciones (75%) */}
-      <div className="w-3/4 p-8">
+      <div className="w-3/4 bg-gray-50">
         <FuncionesList 
           teatro={teatro}
           onAgregarAsiento={agregarAlCarrito}
+          onQuitarAsiento={quitarDelCarrito}
           asientosEnCarrito={asientosEnCarrito}
         />
       </div>

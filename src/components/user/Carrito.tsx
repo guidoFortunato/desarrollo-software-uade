@@ -1,14 +1,53 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Asiento } from '../../models/Asiento';
-import { MedioPago } from '../../models/MedioPago';
+import { CreditoRecargo } from '../../patterns/decorator/CreditoRecargo';
+import { DatosCliente, DatosTarjeta, IFormularioPago } from '../../patterns/strategy/IFormularioPago';
 
 const Carrito = () => {
   const [asientos, setAsientos] = useState<Asiento[]>([]);
   const [medioPago, setMedioPago] = useState<string>('');
   const [cuotas, setCuotas] = useState<number>(1);
+  const [total, setTotal] = useState<number>(0);
+  const [showModal, setShowModal] = useState(false);
 
-  const finalizarCompra = () => {
-    // Implementar lógica de finalización de compra
+  const calcularPrecioTotal = (): number => {
+    return asientos.reduce((total, asiento) => {
+      let precio = asiento.calcularPrecio();
+      
+      if (medioPago === 'credito' && cuotas > 1) {
+        const creditoRecargo = new CreditoRecargo(asiento.calculadoraPrecio, cuotas);
+        precio = creditoRecargo.calcular(asiento, precio);
+      }
+      
+      return total + precio;
+    }, 0);
+  };
+
+  useEffect(() => {
+    const nuevoTotal = calcularPrecioTotal();
+    setTotal(nuevoTotal);
+  }, [asientos, medioPago, cuotas]);
+
+  const handleMetodoPagoChange = (nuevoMetodo: string) => {
+    setMedioPago(nuevoMetodo);
+    if (nuevoMetodo !== 'credito') {
+      setCuotas(1);
+    }
+  };
+
+  const handleCuotasChange = (nuevasCuotas: number) => {
+    setCuotas(nuevasCuotas);
+  };
+
+  const handleCompraFinalizada = (
+    datosCliente: DatosCliente,
+    metodoPago: IFormularioPago,
+    datosPago?: DatosTarjeta
+  ) => {
+    console.log('Compra finalizada', { datosCliente, metodoPago, datosPago });
+    setShowModal(false);
+    setMedioPago('');
+    setCuotas(1);
   };
 
   return (
@@ -16,20 +55,29 @@ const Carrito = () => {
       <h2 className="text-2xl mb-4">Carrito de Compras</h2>
       
       <div className="mb-4">
-        {asientos.map((asiento) => (
-          <div key={asiento.getNumeroAsiento} className="border p-2 mb-2">
-            <p>Función: {asiento.getFuncion.nombre}</p>
-            <p>Ubicación: {asiento.getUbicacion.nombre}</p>
-            <p>Precio: ${asiento.getPrecioBase}</p>
-          </div>
-        ))}
+        {asientos.map((asiento) => {
+          let precioUnitario = asiento.calcularPrecio();
+          if (medioPago === 'credito' && cuotas > 1) {
+            const creditoRecargo = new CreditoRecargo(asiento.calculadoraPrecio, cuotas);
+            precioUnitario = creditoRecargo.calcular(asiento, precioUnitario);
+          }
+
+          return (
+            <div key={asiento.numeroAsiento} className="border p-2 mb-2">
+              <p>Función: {asiento.funcion.nombre}</p>
+              <p>Ubicación: {asiento.ubicacion.nombre}</p>
+              <p>Precio: ${precioUnitario}</p>
+            </div>
+          );
+        })}
       </div>
 
       <div className="mb-4">
+        <h3 className="text-xl mb-2">Total: ${total}</h3>
         <h3 className="text-xl mb-2">Método de Pago</h3>
         <select
           value={medioPago}
-          onChange={(e) => setMedioPago(e.target.value)}
+          onChange={(e) => handleMetodoPagoChange(e.target.value)}
           className="border p-2"
         >
           <option value="">Seleccione método de pago</option>
@@ -41,7 +89,7 @@ const Carrito = () => {
         {medioPago === 'credito' && (
           <select
             value={cuotas}
-            onChange={(e) => setCuotas(Number(e.target.value))}
+            onChange={(e) => handleCuotasChange(Number(e.target.value))}
             className="border p-2 ml-2"
           >
             <option value="1">1 cuota</option>
@@ -53,7 +101,7 @@ const Carrito = () => {
       </div>
 
       <button
-        onClick={finalizarCompra}
+        onClick={() => setShowModal(true)}
         className="bg-green-500 text-white px-4 py-2 rounded"
       >
         Finalizar Compra

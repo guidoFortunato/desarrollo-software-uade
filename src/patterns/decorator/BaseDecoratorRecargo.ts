@@ -1,19 +1,13 @@
-import { Asiento } from "../../models/Asiento";
-import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
+import { Asiento } from '../../models/Asiento';
+import { CalculadoraPrecio } from '../../models/CalculadoraPrecio';
 
-export class BaseDecoratorRecargo extends CalculadoraPrecio {
-    private wrapee: CalculadoraPrecio;
+export abstract class BaseDecoratorRecargo extends CalculadoraPrecio {
+    protected wrapped: CalculadoraPrecio;
 
-    constructor(wrapee: CalculadoraPrecio) {
+    constructor(wrapped: CalculadoraPrecio) {
         super();
-        this.wrapee = wrapee;
+        this.wrapped = wrapped;
     }
 
-    protected getWrapee(): CalculadoraPrecio {
-        return this.wrapee;
-    }
-
-    calcularPrecio(asiento: Asiento, precioAcumulado: number): number {
-        return this.wrapee.calcularPrecio(asiento, precioAcumulado);
-    }
+    abstract calcular(asiento: Asiento, precioAcumulado: number): number;
 }

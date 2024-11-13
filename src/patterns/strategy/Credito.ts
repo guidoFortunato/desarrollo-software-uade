@@ -1,31 +1,39 @@
-import { IEstrategiaMedioPago } from './IEstrategiaMedioPago';
-import { CantidadCuotasException } from '../../excepciones/CantidadCuotasException';
+import { IFormularioPago, DatosCliente, DatosTarjeta } from './IFormularioPago';
+import { FormularioCreditoComponent } from './components/FormularioCreditoComponent';
+import { CreditoRecargo } from '../decorator/CreditoRecargo';
+import { CalculadoraPrecioBase } from '../../models/CalculadoraPrecio';
+import { ComponentType } from 'react';
 
-export class Credito implements IEstrategiaMedioPago {
-    private cuotas: number;
+export class Credito implements IFormularioPago {
+  private cuotas: number;
 
-    constructor(cuotas: number) {
-        this.cuotas = cuotas;
+  constructor(cuotas: number = 1) {
+    this.cuotas = cuotas;
+  }
+
+  getFormularioComponent(): ComponentType<{
+    onSubmit: (datosCliente: DatosCliente, datosPago?: DatosTarjeta) => void;
+    cuotas?: number;
+  }> {
+    return FormularioCreditoComponent;
+  }
+
+  calcularMonto(total: number): number {
+    if (this.cuotas > 1) {
+      const calculadoraBase = new CalculadoraPrecioBase();
+      const creditoRecargo = new CreditoRecargo(calculadoraBase, this.cuotas);
+      return creditoRecargo.calcular({ duracion: 0 } as any, total);
     }
+    return total;
+  }
 
-    public calcularMonto(total: number): number {
-        let recargo: number;
-        switch (this.cuotas) {
-            case 1:
-                recargo = 0;
-                break;
-            case 2:
-                recargo = 0.06;
-                break;
-            case 3:
-                recargo = 0.12;
-                break;
-            case 6:
-                recargo = 0.25;
-                break;
-            default:
-                throw new CantidadCuotasException();
-        }
-        return total * (1 + recargo);
-    }
+  async procesarPago(datosCliente: DatosCliente, datosPago?: DatosTarjeta): Promise<string> {
+    if (!datosPago) throw new Error('Se requieren datos de tarjeta para pago con crédito');
+    const recargo = this.calcularMonto(100) - 100;
+    return `Pago procesado con tarjeta de crédito en ${this.cuotas} cuotas con ${recargo}% de recargo`;
+  }
+
+  getCuotas(): number {
+    return this.cuotas;
+  }
 }

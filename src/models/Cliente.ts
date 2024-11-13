@@ -1,37 +1,30 @@
-import { Ticket } from "./Ticket";
+import { Compra } from './Compra';
 
 export class Cliente {
-  private nombre: string;
-  private dni: string;
-  private tickets: Ticket[];
+    private nombre: string;
+    private email: string;
+    private compras: Compra[];
 
-  constructor(nombre: string, dni: string) {
-      this.nombre = nombre;
-      this.dni = dni;
-      this.tickets = [];
-  }
+    constructor(nombre: string, email: string) {
+        this.nombre = nombre;
+        this.email = email;
+        this.compras = [];
+    }
 
-  // Getter y setter para tickets
-  get getTickets(): Ticket[] {
-      return this.tickets;
-  }
+    public getNombre(): string {
+        return this.nombre;
+    }
 
-  set setTickets(tickets: Ticket[]) {
-      this.tickets = tickets;
-  }
+    public getEmail(): string {
+        return this.email;
+    }
 
-  // Getter para nombre
-  get getNombre(): string {
-      return this.nombre;
-  }
+    public agregarCompra(compra: Compra): void {
+        this.compras.push(compra);
+    }
 
-  set setNombre(nombre: string) {
-    this.nombre = nombre;
-  }
-
-  // Getter para dni
-  get getDni(): string {
-      return this.dni;
-  }
+    public getCompras(): Compra[] {
+        return this.compras;
+    }
 }
 
