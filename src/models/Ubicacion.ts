@@ -27,9 +27,9 @@ export class Ubicacion  {
     }
 
     public build(nombre:string,cantidad:number){
-      /*  if(nombre=="platea"){
+        if(nombre=="platea"){
 
-            return new Platea(cantidad);
+            return new Platea();
         }
         if (nombre=="palco alto") {
             return new PalcoAlto(cantidad);
@@ -37,7 +37,7 @@ export class Ubicacion  {
         } else {alert("no existeeee");
             
         }
-*/
+
 
 return 0;
 

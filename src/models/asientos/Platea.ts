@@ -15,8 +15,8 @@ export class Platea extends Asiento{
 
     
   
-    constructor(numeroAsiento: number, estado: boolean, funcion: Funcion) {
-      super(numeroAsiento,estado, funcion);
+    constructor( estado: boolean) {
+      super(estado);
      
       this.valor= 200;
       Platea.contador ++;
@@ -34,5 +34,10 @@ export class Platea extends Asiento{
     return this.valor;
 
   }
+
+ 
+
+ 
+  
 
 }

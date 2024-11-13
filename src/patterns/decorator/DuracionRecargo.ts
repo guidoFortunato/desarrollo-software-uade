@@ -1,6 +1,6 @@
 
 import { Asiento } from "../../models/Asiento";
-import { CalculadoraPrecio } from "../../models/CalculadoraPrecio";
+
 import { BaseDecoratorRecargo } from "./BaseDecoratorRecargo";
 
 export class DuracionRecargo extends BaseDecoratorRecargo {

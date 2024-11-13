@@ -5,28 +5,24 @@ import { BaseDecoratorRecargo } from "../patterns/decorator/BaseDecoratorRecargo
 
 export  abstract class Asiento {
 
-    private _numeroAsiento: number;
-    private _estado: boolean;
-    private _funcion: Funcion;
+    protected static _numeroAsientoContador: number;
+    
+    
+    protected _numeroAsiento: number;
+
+    protected _funciones! :Funcion[];
    
 
-    constructor(numeroAsiento: number, estado: boolean,funcion: Funcion) {
-        this._numeroAsiento = numeroAsiento;
-        this._estado = estado;
-        this._funcion = funcion;
+    constructor( ) {
+        this._numeroAsiento = Asiento._numeroAsientoContador +1;
+        
+       
     }
 
     // Getter y setter para funcion
-    get getFuncion(): Funcion {
-        return this._funcion;
-    }
-
-    set setFuncion(funcion: Funcion) {
-        this._funcion = funcion;
-    }
+    
 
     
-  
 
    abstract set setPrecioBase(precioBase: number);
       
@@ -43,18 +39,19 @@ export  abstract class Asiento {
     }
 
     // Getter y setter para estado
-    get isEstado(): boolean {
-        return this._estado;
-    }
+    
 
-    set setEstado(estado: boolean) {
-        this._estado = estado;
-    }
+    
 
     // Getter y setter para calculadora
     
 
-    
+    set setFuncion(funcion:Funcion){
+
+        this._funciones.push(funcion);
+    }
+
+
 
     // Método abstracto calcularPrecio
 

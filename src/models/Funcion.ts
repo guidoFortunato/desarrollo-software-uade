@@ -7,23 +7,25 @@ export class Funcion {
     private hora: string;
     private grupo: Grupo;
     private duracion: number;
-    private ubicacionesHabilitadas: Ubicacion[];
-    private asientos: Asiento[];
+    private nombre:string;
+    
+    private asientosDisponibles!: boolean[]; 
 
     constructor(
         fecha: Date,
         hora: string,
         grupo: Grupo,
         duracion: number,
-        ubicacionesHabilitadas: Ubicacion[],
-        asientos: Asiento[]
+
+        asientosDisponibles: number,
+        nombre:string
     ) {
         this.fecha = fecha;
         this.hora = hora;
         this.grupo = grupo;
         this.duracion = duracion;
-        this.ubicacionesHabilitadas = ubicacionesHabilitadas;
-        this.asientos = asientos;
+        this.asientosDisponibles = new Array(asientosDisponibles).fill(true);
+        this.nombre=nombre;
     }
 
     // Métodos privados
@@ -81,12 +83,21 @@ export class Funcion {
         this.ubicacionesHabilitadas = ubicacionesHabilitadas;
     }
 
-    get getAsientos(): Asiento[] {
-        return this.asientos;
+    get getAsientos(): boolean[] {
+        return this.asientosDisponibles;
     }
 
     set setAsientos(asientos: Asiento[]) {
         this.asientos = asientos;
+    }
+
+    set setNomber(nombre:string){
+        this.nombre=nombre;
+    }
+
+    get getNombre():string{
+
+        return this.nombre;
     }
 }
 
