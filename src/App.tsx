@@ -26,7 +26,7 @@ function App() {
   const funcionInicial = new Funcion(
     1,
     "Romeo y Julieta",
-    new Date('2024-11-15'),
+    new Date('2025-11-15'),
     "20:00",
     grupoInicial,
     120,
