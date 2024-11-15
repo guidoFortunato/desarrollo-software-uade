@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Teatro } from './models/Teatro';
 import { Funcion } from './models/Funcion';
 import { Grupo } from './models/Grupo';

@@ -1,0 +1,5 @@
+En la carpeta BUILD hay un archivo index.html 
+Abrir este archivo con el navegador correra la aplicacion completa.
+
+Las clases y los patrones se encuentran en src/models y src/patterns respectivamente, 
+en las otras carpetas se encuentran archivos de react con las vistas, componentes, etc
